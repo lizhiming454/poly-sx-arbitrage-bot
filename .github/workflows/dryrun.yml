@@ -1,0 +1,27 @@
+name: Dry-run Arbitrage Bot
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-node-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install web3 requests
+
+      - name: Run Arbitrage Bot Dry-run
+        run: |
+          python poly_sx_arbitrage_bot.py
